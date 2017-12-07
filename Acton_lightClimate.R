@@ -1,3 +1,8 @@
+rm(list=ls())
+setwd('~')
+source('.Rprofile')
+
+
 #Calculate average light climate for the acton lake time series
 library(lubridate)
 
@@ -5,6 +10,8 @@ library(lubridate)
 setwd('~/Documents/Miami U/acton data')
 
 secchi<-read.csv('light_DOC_Secchi_ Acton_92_12.csv')
+
+secchi<-secchi[secchi$SampSite!='INFLO',]
 
 #get a data frame of just light as well
 light<-secchi[,c(4,7,8)]
@@ -21,6 +28,8 @@ ggplot(data=mean.secchi,aes(mdy(dateSample),y=as.numeric(secchi)))+geom_point()+
 #now need to get zmix from the data
 #load temp data
 temp<-read.csv('light.temp.do_Acton.csv',1)
+
+temp<-temp[temp$Site=='Outflow',]
 
 #use only date, depth, and temp columns
 temp<-temp[,c(2,4,5)]
